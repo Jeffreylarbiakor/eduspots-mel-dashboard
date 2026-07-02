@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduSpots &mdash; Spot Health &amp; MEL Dashboard</title>
+  <meta name="description" content="Network-wide monitoring, evaluation and learning dashboard for EduSpots' community-led learning hubs." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand__mark">ES</span>
+        <div>
+          <div class="brand__name">EduSpots</div>
+          <div class="brand__sub">Spot Health &amp; MEL</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#" class="nav__link active" data-view-link="overview">Overview</a>
+        <a href="#" class="nav__link" data-view-link="grid">Spot health grid</a>
+        <a href="#" class="nav__link" data-view-link="clusters">RC clusters</a>
+        <a href="#" class="nav__link" data-view-link="safeguarding">Safeguarding</a>
+        <a href="#" class="nav__link" data-view-link="anomalies">Anomalies</a>
+      </nav>
+
+      <div class="sidebar__footer">
+        <p>Prototype built for the Head of Programme &amp; Product Operations application.</p>
+        <p class="sidebar__footer-note">Synthetic demo data &mdash; structured to match EduSpots' real model.</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1>Network monitoring</h1>
+          <p class="topbar__meta">Last synced <span id="synced-at">&mdash;</span></p>
+        </div>
+        <button id="refresh-button" class="button">Simulate app sync</button>
+      </header>
+
+      <section id="view-overview" class="view active">
+        <div id="kpi-row" class="kpi-row"></div>
+        <div class="chart-row">
+          <div class="panel">
+            <h2>Network engagement &mdash; last 12 weeks</h2>
+            <p class="panel__sub">Sessions logged across all Spots via the EduSpots App</p>
+            <div class="chart-wrap"><canvas id="trend-chart"></canvas></div>
+          </div>
+          <div class="panel">
+            <h2>Strand participation</h2>
+            <p class="panel__sub">Number of Spots currently running each learner strand</p>
+            <div class="chart-wrap"><canvas id="strand-chart"></canvas></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-grid" class="view">
+        <div class="panel">
+          <div class="panel__header-row">
+            <div>
+              <h2>Spot health grid</h2>
+              <p class="panel__sub">Every Spot in the network, colour-coded by health status</p>
+            </div>
+            <div class="filters">
+              <select id="status-filter">
+                <option value="all">All statuses</option>
+                <option value="healthy">Healthy</option>
+                <option value="watch">Watch</option>
+                <option value="at-risk">At risk</option>
+              </select>
+              <select id="cluster-filter"><option value="all">All clusters</option></select>
+            </div>
+          </div>
+          <p id="grid-count" class="grid-count"></p>
+          <div class="legend">
+            <span><i class="dot dot--healthy"></i>Healthy</span>
+            <span><i class="dot dot--watch"></i>Watch</span>
+            <span><i class="dot dot--at-risk"></i>At risk</span>
+          </div>
+          <div id="spot-grid" class="spot-grid"></div>
+        </div>
+      </section>
+
+      <section id="view-clusters" class="view">
+        <div class="panel">
+          <h2>RC clusters</h2>
+          <p class="panel__sub">Spot status breakdown by Regional Coordinator</p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Regional Coordinator</th>
+                <th>Region</th>
+                <th>Spots</th>
+                <th>Healthy</th>
+                <th>Watch</th>
+                <th>At risk</th>
+                <th>Avg. compliance</th>
+              </tr>
+            </thead>
+            <tbody id="clusters-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="view-safeguarding" class="view">
+        <div class="panel">
+          <h2>Safeguarding training compliance</h2>
+          <p id="safeguarding-summary" class="panel__sub"></p>
+          <div id="safeguarding-list" class="safeguarding-list"></div>
+        </div>
+      </section>
+
+      <section id="view-anomalies" class="view">
+        <div class="panel">
+          <h2>Auto-flagged anomalies</h2>
+          <p id="anomalies-summary" class="panel__sub"></p>
+          <div id="anomalies-list" class="anomalies-list"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="spot-modal" class="modal hidden">
+    <div class="modal__backdrop"></div>
+    <div class="modal__panel">
+      <button class="modal__close" aria-label="Close">&times;</button>
+      <div class="modal__body"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
