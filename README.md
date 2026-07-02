@@ -2,7 +2,7 @@
 
 A prototype network-monitoring dashboard for EduSpots' community-led learning hubs, built as a working example for the **Head of Programme and Product Operations** application.
 
-**[View the live demo](#)** *(replace with your GitHub Pages URL once deployed — see below)*
+**[View the live demo](#)** *(https://jeffreylarbiakor.github.io/eduspots-mel-dashboard/)*
 
 ![status](https://img.shields.io/badge/status-prototype-D9A62E)
 
