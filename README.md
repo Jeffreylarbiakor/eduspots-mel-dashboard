@@ -69,4 +69,4 @@ Or just open `index.html` directly in a browser.
 
 ---
 
-*Built by [your name] — [date]. Part of a set of five operations-automation prototypes designed around EduSpots' actual programme model (Ignite/Catalyse/Sustain, RCs, Spot Committees, safeguarding via Keeping Spots Safe).*
+*Built by Jeffrey Larbi-Akor — 02-07-2026. Part of a set of five operations-automation prototypes designed around EduSpots' actual programme model (Ignite/Catalyse/Sustain, RCs, Spot Committees, safeguarding via Keeping Spots Safe).*
