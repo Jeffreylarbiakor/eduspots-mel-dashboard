@@ -78,19 +78,18 @@ p { margin: 0; }
   );
 }
 
-.brand { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
-.brand__mark {
-  width: 40px; height: 40px;
-  background: var(--gold);
-  color: var(--forest);
-  font-family: var(--font-display);
-  font-weight: 700;
-  display: flex; align-items: center; justify-content: center;
+.brand { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+.brand__plate {
+  background: #FFFFFF;
   border-radius: 8px;
-  font-size: 15px;
+  padding: 12px 14px;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 }
-.brand__name { font-family: var(--font-display); font-weight: 600; font-size: 16px; }
-.brand__sub { font-size: 12px; color: var(--gold-soft); }
+.brand__logo { display: block; height: 46px; width: auto; max-width: 100%;}
+.brand__sub { font-size: 12px; color: var(--gold-soft); padding-left: 2px; }
 
 .nav { display: flex; flex-direction: column; gap: 4px; }
 .nav__link {
