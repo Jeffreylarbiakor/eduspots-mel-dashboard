@@ -33,33 +33,16 @@ const pick = (arr) => arr[Math.floor(rand() * arr.length)];
 const randInt = (min, max) => Math.floor(rand() * (max - min + 1)) + min;
 const randFloat = (min, max) => rand() * (max - min) + min;
 
-const REGIONS = [
-  "Ashanti", "Central", "Volta", "Northern", "Western",
-  "Eastern", "Greater Accra", "Bono",
-];
-
-const RC_NAMES = [
-  "Ama Boateng", "Kofi Mensah", "Efua Owusu", "Yaw Asante",
-  "Abena Darko", "Kwame Osei", "Adjoa Frimpong", "Kojo Appiah",
-];
-
 const STRANDS = ["EduKidz", "DigiLit", "EcoSTEM", "Ignite Equity"];
 
-const SPOT_NAME_ROOTS = [
-  "Abofour", "Ameyaw", "Nsuta", "Kyekyewere", "Breman", "Adawso",
-  "Anyinasin", "Dwease", "Fawoman", "Gyakiti", "Hohoe", "Ibadan Rd",
-  "Juaso", "Kwadaso", "Larteh", "Mampong", "Nkawkaw", "Oyoko",
-  "Peki", "Saboba", "Tafo", "Vane", "Winneba", "Yeji", "Zabzugu",
-  "Akropong", "Bunso", "Chinderi", "Dodowa", "Enchi", "Feyiase",
-  "Gomoa", "Half Assini", "Ilashe", "Jasikan", "Kete Krachi",
-  "Likpe", "Mankessim", "Nalerigu", "Odumase", "Prang", "Salaga",
-];
+// Real Spot names and RC roster, scraped from eduspots.org — see real-data.js
+const SPOT_NAME_ROOTS = window.EduSpotsRealData.spotNames;
 
 function buildRegionalCoordinators() {
-  return RC_NAMES.map((name, i) => ({
+  return window.EduSpotsRealData.regionalCoordinators.map((rc, i) => ({
     id: `rc-${i + 1}`,
-    name,
-    region: REGIONS[i % REGIONS.length],
+    name: rc.name,
+    region: rc.region,
   }));
 }
 
@@ -109,7 +92,7 @@ function computeStatus(spot) {
   return { level: "healthy", reasons: [] };
 }
 
-function generateSpots(rcs, count = 52) {
+function generateSpots(rcs, count = SPOT_NAME_ROOTS.length) {
   const spots = [];
   for (let i = 0; i < count; i++) {
     const rc = rcs[i % rcs.length];
@@ -139,6 +122,7 @@ function generateSpots(rcs, count = 52) {
     const spot = {
       id: `spot-${i + 1}`,
       name: `${SPOT_NAME_ROOTS[i % SPOT_NAME_ROOTS.length]} Spot`,
+      isRealName: true, // Spot name is real (eduspots.org); fields below this line are synthetic
       region: rc.region,
       rcId: rc.id,
       type,
@@ -161,10 +145,11 @@ function generateNetworkData() {
   const regionalCoordinators = buildRegionalCoordinators();
   const spots = generateSpots(regionalCoordinators, 52);
 
+  const real = window.EduSpotsRealData.networkTotals;
   const totals = {
-    totalSpots: spots.length,
-    totalCatalysts: spots.reduce((sum, s) => sum + s.catalystCount, 0),
-    totalSparks: spots.reduce((sum, s) => sum + s.sparksReached, 0),
+    totalSpots: real.totalSpots,       // real figure (eduspots.org), not spots.length
+    totalCatalysts: real.totalCatalysts, // real figure — per-Spot breakdown is synthetic
+    totalSparks: real.totalSparks,       // real figure — per-Spot breakdown is synthetic
     atRisk: spots.filter((s) => s.status.level === "at-risk").length,
     watch: spots.filter((s) => s.status.level === "watch").length,
     healthy: spots.filter((s) => s.status.level === "healthy").length,
